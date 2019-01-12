@@ -23,7 +23,55 @@
 
 </table>
 
-{% endblock %}
+<h2>Addresses</h2>
 
+<table>
+<tr><th>PK</th><th>City</th><th>Street</th><th>Building Number</th><th>Apartment Number</th><th></th><th></th></tr>
+    {% for a in address %}
+            <tr><td>{{ a.id }}</td>
+                <td>{{ a.city }}</td>
+                <td>{{ a.street }}</td>
+                <td>{{ a.building_number }}</td>
+                <td>{{ a.apartment_number}}</td>
+                <td><a href="{% url 'modifyAddress' a.id %}">Edit</a></td>
+                <td><a href="{% url 'deleteAddress' a.id %}">Delete</a></td>
+            </tr>
+    {% endfor %}
+
+</table>
+<h3><a href="{% url 'addAddress' p.id %}">Add new address</a></h3>
+
+<h2>Phones</h2>
+
+<table>
+<tr><th>PK</th><th>Phone Number</th><th>Phone Type</th><th></th><th></th></tr>
+    {% for ph in phone %}
+            <tr><td>{{ ph.id }}</td>
+                <td>{{ ph.phone_number }}</td>
+                <td>{{ ph.get_phone_type_display }}</td>
+                <td><a href="{% url 'modifyPhone' ph.id %}">Edit</a></td>
+                <td><a href="{% url 'deletePhone' ph.id %}">Delete</a></td>
+            </tr>
+    {% endfor %}
+
+</table>
+<h3><a href="{% url 'addPhone' p.id %}">Add new phone</a></h3>
+
+<h2>Emails</h2>
+
+<table>
+<tr><th>PK</th><th>Email Address</th><th>Email Type</th><th></th><th></th></tr>
+    {% for e in email %}
+            <tr><td>{{ e.id }}</td>
+                <td>{{ e.email }}</td>
+                <td>{{ e.get_email_type_display }}</td>
+                <td><a href="{% url 'modifyEmail' e.id %}">Edit</a></td>
+                <td><a href="{% url 'deleteEmail' e.id %}">Delete</a></td>
+            </tr>
+    {% endfor %}
+
+</table>
+<h3><a href="{% url 'addEmail' p.id %}">Add new email</a></h3>
+{% endblock %}
 </body>
 </html>

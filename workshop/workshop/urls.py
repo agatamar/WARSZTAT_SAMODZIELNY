@@ -15,7 +15,7 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, re_path
-from addressbook.views import newPerson,modifyPerson,deletePerson,showPerson,showAllPersons
+from addressbook.views import newPerson,modifyPerson,deletePerson,showPerson,showAllPersons,modifyAddress,deleteAddress,addAddress,modifyPhone,deletePhone,addPhone,modifyEmail,deleteEmail,addEmail
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -24,4 +24,13 @@ urlpatterns = [
     re_path(r'^delete/(?P<id>[0-9]+)/$', deletePerson.as_view(),	name="delete"),
     re_path(r'^show/(?P<id>[0-9]+)/$', showPerson.as_view(),	name="show"),
     re_path(r'^all/$', showAllPersons.as_view(), name="all"),
+    re_path(r'^modifyAddress/(?P<id>[0-9]+)/$', modifyAddress.as_view(),	name="modifyAddress"),
+    re_path(r'^deleteAddress/(?P<id>[0-9]+)/$', deleteAddress.as_view(),	name="deleteAddress"),
+    re_path(r'^addAddress/(?P<id>[0-9]+)/$', addAddress.as_view(),	name="addAddress"),
+    re_path(r'^modifyPhone/(?P<id>[0-9]+)/$', modifyPhone.as_view(), name="modifyPhone"),
+    re_path(r'^deletePhone/(?P<id>[0-9]+)/$', deletePhone.as_view(), name="deletePhone"),
+    re_path(r'^addPhone/(?P<id>[0-9]+)/$', addPhone.as_view(), name="addPhone"),
+    re_path(r'^modifyEmail/(?P<id>[0-9]+)/$', modifyEmail.as_view(), name="modifyEmail"),
+    re_path(r'^deleteEmail/(?P<id>[0-9]+)/$', deleteEmail.as_view(), name="deleteEmail"),
+    re_path(r'^addEmail/(?P<id>[0-9]+)/$', addEmail.as_view(), name="addEmail"),
 ]
