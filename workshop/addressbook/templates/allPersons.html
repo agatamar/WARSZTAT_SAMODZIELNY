@@ -9,7 +9,7 @@
 
 {% for p in persons_list %}
 		<tr><td>{{ p.id }}</td>
-            <td><a href ="{% url 'show' p.id %}">{{ p.first_name }}</td>
+			<td><a href ="{% url 'show' p.id %}">{{ p.first_name }}</a></td>
 			<td>{{ p.last_name }}</td>
             <td>{{ p.description }}</td>
 			<td><a href="{% url 'modify' p.id %}">Edit</a></td>

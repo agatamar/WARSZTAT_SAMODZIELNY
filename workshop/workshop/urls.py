@@ -15,7 +15,7 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, re_path
-from addressbook.views import newPerson,modifyPerson,deletePerson,showPerson,showAllPersons,modifyAddress,deleteAddress,addAddress,modifyPhone,deletePhone,addPhone,modifyEmail,deleteEmail,addEmail
+from addressbook.views import newPerson,modifyPerson,deletePerson,showPerson,showAllPersons,modifyAddress,deleteAddress,addAddress,modifyPhone,deletePhone,addPhone,modifyEmail,deleteEmail,addEmail,modifyGroup,deleteGroup,addGroup,allGroups,showGroup
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -33,4 +33,9 @@ urlpatterns = [
     re_path(r'^modifyEmail/(?P<id>[0-9]+)/$', modifyEmail.as_view(), name="modifyEmail"),
     re_path(r'^deleteEmail/(?P<id>[0-9]+)/$', deleteEmail.as_view(), name="deleteEmail"),
     re_path(r'^addEmail/(?P<id>[0-9]+)/$', addEmail.as_view(), name="addEmail"),
+    re_path(r'^addGroup/$', addGroup.as_view(), name="addGroup"),
+    re_path(r'^allGroups/$', allGroups.as_view(), name="allGroups"),
+    re_path(r'^showGroup/(?P<id>[0-9]+)/$', showGroup.as_view(), name="showGroup"),
+    re_path(r'^modifyGroup/(?P<id>[0-9]+)/$', modifyGroup.as_view(), name="modifyGroup"),
+    re_path(r'^deleteGroup/(?P<id>[0-9]+)/$', deleteGroup.as_view(), name="deleteGroup"),
 ]

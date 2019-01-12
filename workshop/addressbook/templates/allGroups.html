@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<h2>All Groups</h2>
+
+<table>
+<tr><th>PK</th><th>Group Name</th><th>Person</th><th></th><th></th></tr>
+
+{% for g in groups_list %}
+		<tr><td>{{ g.id }}</td>
+			<td><a href ="{% url 'showGroup' g.id %}">{{ g.group_name }}</a></td>
+			<td>{% for p in g.person.all %}{{ p }},{% endfor %}</td>
+			<td><a href="{% url 'modifyGroup' g.id %}">Edit</a></td>
+			<td><a href="{% url 'deleteGroup' g.id %}">Delete</a></td>
+		</tr>
+{% endfor %}
+
+</table>
+
+<h3><a href="{% url 'addGroup' %}">Add new group</a></h3>
+
+{% endblock %}

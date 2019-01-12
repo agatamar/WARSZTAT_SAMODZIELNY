@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.urls import reverse
 from django.views import View
-from .forms import PersonForm,AddressForm, PhoneForm,EmailForm
+from .forms import PersonForm,AddressForm, PhoneForm,EmailForm,GroupForm
 from .models import Person,Address,Phone,Group,Email
 # Create your views here.
 
@@ -16,6 +16,9 @@ class newPerson(View):
         if form.is_valid():
             person = form.save(commit=True)
             p=Person.objects.get(id=person.pk)
+            address = Address.objects.filter(person_id=p.id)
+            phone = Phone.objects.filter(person_id=p.id)
+            email = Email.objects.filter(person_id=p.id)
             return render(request,"show.html",locals())
 
 
@@ -192,3 +195,45 @@ class addEmail(View):
         if form.is_valid():
             email_f = form.save(commit=True)
             return render(request, "show.html", locals())
+
+
+class addGroup(View):
+    def get(self, request):
+        form=GroupForm()
+        return render(request, 'newGroup.html',{'form':form})
+
+    def post(self, request):
+        form=GroupForm(request.POST)
+        if form.is_valid():
+            g = form.save(commit=True)
+            return render(request,"showGroup.html",locals())
+
+
+class modifyGroup(View):
+    def get(self,request,id):
+        group=get_object_or_404(Group,id=id)
+        form=GroupForm(instance=group)
+        return render(request,'newGroup.html',locals())
+    def post(self,request,id):
+        group=get_object_or_404(Group,id=id)
+        form=GroupForm(request.POST,instance=group)
+        if form.is_valid():
+            g = form.save(commit=True)
+            return render(request, "showGroup.html", locals())
+
+class deleteGroup(View):
+    def get(self,request,id):
+        group=get_object_or_404(Group,id=id)
+        group.delete()
+        return redirect('allGroups')
+
+
+class showGroup(View):
+    def get(self,request,id):
+        g=Group.objects.get(id=id)
+        return render(request,"showGroup.html",locals())
+
+class allGroups(View):
+    def get(self,request):
+        groups_list=Group.objects.all().order_by('group_name')
+        return render(request,"allGroups.html",locals())

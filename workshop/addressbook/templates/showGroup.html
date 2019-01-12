@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+{% extends "base.html" %}
+
+{% block content %}
+
+<h2>Group's details</h2>
+
+<table>
+<tr><th>PK</th><th>Group Name</th><th>Person</th><th></th><th></th></tr>
+		<tr><td>{{ g.id }}</td>
+            <td>{{ g.group_name }}</td>
+			<td>{{ g.person }}</td>
+			<td><a href="{% url 'modifyGroup' g.id %}">Edit</a></td>
+			<td><a href="{% url 'deleteGroup' g.id %}">Delete</a></td>
+		</tr>
+
+</table>
+
+{% endblock %}
+</body>
+</html>
