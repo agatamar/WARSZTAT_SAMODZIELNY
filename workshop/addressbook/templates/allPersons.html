@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<h2>List of persons</h2>
+
+<table>
+<tr><th>PK</th><th>First Name</th><th>Last Name</th><th>Description</th><th></th><th></th></tr>
+
+{% for p in persons_list %}
+		<tr><td>{{ p.id }}</td>
+            <td><a href ="{% url 'show' p.id %}">{{ p.first_name }}</td>
+			<td>{{ p.last_name }}</td>
+            <td>{{ p.description }}</td>
+			<td><a href="{% url 'modify' p.id %}">Edit</a></td>
+			<td><a href="{% url 'delete' p.id %}">Delete</a></td>
+		</tr>
+{% endfor %}
+
+</table>
+
+<h3><a href="{% url 'new' %}">Add new person</a></h3>
+
+{% endblock %}

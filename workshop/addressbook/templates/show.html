@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+{% extends "base.html" %}
+
+{% block content %}
+
+<h2>Person's details</h2>
+
+<table>
+<tr><th>PK</th><th>First Name</th><th>Last Name</th><th>Description</th><th></th><th></th></tr>
+		<tr><td>{{ p.id }}</td>
+            <td>{{ p.first_name }}</td>
+			<td>{{ p.last_name }}</td>
+			<td>{{ p.description }}</td>
+			<td><a href="{% url 'modify' p.id %}">Edit</a></td>
+			<td><a href="{% url 'delete' p.id %}">Delete</a></td>
+		</tr>
+
+</table>
+
+{% endblock %}
+
+</body>
+</html>
