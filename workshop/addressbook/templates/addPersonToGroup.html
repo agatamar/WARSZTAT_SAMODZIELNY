@@ -8,11 +8,10 @@
 {% extends 'base.html' %}
 
 {% block content %}
-    <h1>New Group</h1>
+    <h1>Add Person To Group</h1>
     <form method="POST" class="group-form">{% csrf_token %}
-        <label>Group Name: </label>
-        {{ form.group_name}}
-        <p><button type="submit" class="save btn btn-default">Save</button></p>
+        {{ form.as_p}}
+        <button type="submit" class="save btn btn-default">Save</button>
     </form>
 {% endblock %}
 </body>

@@ -237,3 +237,15 @@ class allGroups(View):
     def get(self,request):
         groups_list=Group.objects.all().order_by('group_name')
         return render(request,"allGroups.html",locals())
+
+class addPersonToGroup(View):
+    def get(self,request):
+        form = GroupForm()
+        return render(request,'addPersonToGroup.html',{'form':form})
+    def post(self,request):
+        form=GroupForm(request.POST)
+        if form.is_valid():
+            form.save(commit=False)
+
+            form.save_m2m()
+            return redirect('allGroups')

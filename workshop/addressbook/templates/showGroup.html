@@ -15,7 +15,7 @@
 <tr><th>PK</th><th>Group Name</th><th>Person</th><th></th><th></th></tr>
 		<tr><td>{{ g.id }}</td>
             <td>{{ g.group_name }}</td>
-			<td>{{ g.person }}</td>
+			<td>{% for p in g.person.all %}{{ p }},{% endfor %}</td>
 			<td><a href="{% url 'modifyGroup' g.id %}">Edit</a></td>
 			<td><a href="{% url 'deleteGroup' g.id %}">Delete</a></td>
 		</tr>
