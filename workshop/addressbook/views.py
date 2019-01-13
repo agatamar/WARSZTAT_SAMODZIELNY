@@ -1,3 +1,6 @@
+from django.contrib import messages
+from django.core.exceptions import ObjectDoesNotExist
+from django.db.models import Q
 from django.shortcuts import render, redirect, get_object_or_404
 from django.urls import reverse
 from django.views import View
@@ -249,3 +252,25 @@ class addPersonToGroup(View):
 
             form.save_m2m()
             return redirect('allGroups')
+class groupSearch(View):
+    def get(self,request):
+        form=PersonForm()
+        return render(request,'groupSearch.html',locals())
+    def post(self, request):
+            form = PersonForm(request.POST)
+            if form.is_valid():
+                person = form.save(commit=False)
+                first_name = request.POST.get('first_name')
+                last_name=request.POST.get('last_name')
+                try:
+                    p = Person.objects.filter(Q(first_name=first_name)| Q(last_name=last_name))
+                except ObjectDoesNotExist:
+                    messages.error(request, "There is no person with such first_name.")
+                    return render(request, 'groupSearch.html', locals())
+                p_list=[]
+                for i in p:
+                    p_list.append(i.id)
+                groups_list = Group.objects.all().filter(person__id__in=p_list)
+                return render(request, 'groupSearch.html', locals())
+
+
