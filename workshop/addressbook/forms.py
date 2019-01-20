@@ -29,4 +29,9 @@ class EmailForm(forms.ModelForm):
 class GroupForm(forms.ModelForm):
     class Meta:
         model=Group
+        fields=('group_name',)
+
+class GroupPersonForm(forms.ModelForm):
+    class Meta:
+        model=Group
         fields=('group_name','person')

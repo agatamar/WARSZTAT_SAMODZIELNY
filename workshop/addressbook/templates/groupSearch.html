@@ -8,7 +8,7 @@
 
 
 {% block content %}
-    <h3>Person's searching parameters</h3>
+    <h2>Person's searching parameters</h2>
     <form method="POST" class="person-form">{% csrf_token %}
         <p><label>First_name: </label>{{ form.first_name }}</p>
         <p><label>Last_name: </label>{{ form.last_name }}</p>

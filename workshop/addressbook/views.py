@@ -1,10 +1,11 @@
 from django.contrib import messages
 from django.core.exceptions import ObjectDoesNotExist
 from django.db.models import Q
+from django.forms import modelformset_factory
 from django.shortcuts import render, redirect, get_object_or_404
 from django.urls import reverse
 from django.views import View
-from .forms import PersonForm,AddressForm, PhoneForm,EmailForm,GroupForm
+from .forms import PersonForm,AddressForm, PhoneForm,EmailForm,GroupForm,GroupPersonForm
 from .models import Person,Address,Phone,Group,Email
 # Create your views here.
 
@@ -243,15 +244,17 @@ class allGroups(View):
 
 class addPersonToGroup(View):
     def get(self,request):
-        form = GroupForm()
+        group=Group.objects.all()
+        form = GroupPersonForm(instance=group)
         return render(request,'addPersonToGroup.html',{'form':form})
     def post(self,request):
-        form=GroupForm(request.POST)
+        form=GroupPersonForm(request.POST)
         if form.is_valid():
-            form.save(commit=False)
-
-            form.save_m2m()
+            form.save(commit=True)
+            #form.save_m2m()
             return redirect('allGroups')
+
+
 class groupSearch(View):
     def get(self,request):
         form=PersonForm()

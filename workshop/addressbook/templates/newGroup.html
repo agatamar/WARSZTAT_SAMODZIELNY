@@ -8,7 +8,7 @@
 {% extends 'base.html' %}
 
 {% block content %}
-    <h1>New Group</h1>
+    <h2>New Group</h2>
     <form method="POST" class="group-form">{% csrf_token %}
         <label>Group Name: </label>
         {{ form.group_name}}
@@ -17,3 +17,4 @@
 {% endblock %}
 </body>
 </html>
+
