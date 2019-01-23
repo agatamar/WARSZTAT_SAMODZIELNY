@@ -5,6 +5,8 @@ from django.forms import modelformset_factory
 from django.shortcuts import render, redirect, get_object_or_404
 from django.urls import reverse
 from django.views import View
+from django.views.generic import UpdateView
+
 from .forms import PersonForm,AddressForm, PhoneForm,EmailForm,GroupForm,GroupPersonForm
 from .models import Person,Address,Phone,Group,Email
 # Create your views here.
@@ -243,16 +245,16 @@ class allGroups(View):
         return render(request,"allGroups.html",locals())
 
 class addPersonToGroup(View):
-    def get(self,request):
-        group=Group.objects.all()
-        form = GroupPersonForm(instance=group)
-        return render(request,'addPersonToGroup.html',{'form':form})
+    def get(self, request):
+        form = GroupPersonForm()
+        return render(request, 'addPersonToGroup.html', locals())
     def post(self,request):
         form=GroupPersonForm(request.POST)
         if form.is_valid():
             form.save(commit=True)
-            #form.save_m2m()
             return redirect('allGroups')
+
+        #selected_item = get_object_or_404(Item, pk=request.POST.get('item_id'))
 
 
 class groupSearch(View):
@@ -275,5 +277,4 @@ class groupSearch(View):
                     p_list.append(i.id)
                 groups_list = Group.objects.all().filter(person__id__in=p_list)
                 return render(request, 'groupSearch.html', locals())
-
 

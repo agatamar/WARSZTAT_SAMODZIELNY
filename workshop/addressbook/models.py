@@ -51,7 +51,7 @@ class Group(models.Model):
     person = models.ManyToManyField(Person)
 
     def __str__(self):
-        return "{} ({})".format(self.group_name,self.id)
+        return "{}".format(self.group_name)
 
 
 

@@ -11,8 +11,9 @@
     <h2>Add Person To Group</h2>
     <form method="POST" class="group-form">{% csrf_token %}
         {{ form.as_p}}
-        <button type="submit" class="save btn btn-default">Save</button>
+        <p><button type="submit" class="save btn btn-default">Save</button></p>
     </form>
+
 {% endblock %}
 </body>
 </html>

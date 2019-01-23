@@ -1,5 +1,8 @@
 from django import forms
-from django.forms import SelectDateWidget
+from django.forms import SelectDateWidget,Select,ModelChoiceField
+from django.forms.widgets import CheckboxSelectMultiple
+from django.forms import widgets
+
 from .models import Person,Address,Email,Phone,Group
 
 
@@ -35,3 +38,9 @@ class GroupPersonForm(forms.ModelForm):
     class Meta:
         model=Group
         fields=('group_name','person')
+
+    def __init__(self, *args, **kwargs):
+        super(GroupPersonForm, self).__init__(*args, **kwargs)
+        self.fields['person'].widget = CheckboxSelectMultiple()
+        self.fields['person'].queryset = Person.objects.all()
+        self.fields["group_name"].widget=Select(choices=list(Group.objects.all().values_list("group_name","group_name").order_by("group_name")))
