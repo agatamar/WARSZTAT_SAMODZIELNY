@@ -43,3 +43,5 @@ class GroupPersonForm(forms.ModelForm):
         super(GroupPersonForm, self).__init__(*args, **kwargs)
         self.fields['person'].widget = CheckboxSelectMultiple()
         self.fields['person'].queryset = Person.objects.all()
+        #self.fields["group_name"].widget=Select(choices=list(Group.objects.all().values_list("group_name","group_name").order_by("group_name")))
+        self.fields["group_name"].widget=Select(choices=[(g.id, g.group_name) for g in Group.objects.all()])

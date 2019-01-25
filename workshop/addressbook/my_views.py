@@ -203,29 +203,29 @@ class addEmail(View):
             return render(request, "show.html", locals())
 
 
+class addGroup(View):
+    def get(self, request):
+        form=GroupForm()
+        return render(request, 'newGroup.html',{'form':form})
 
-class modifyGroup(View):
-    def get(self,request,id=None):
-        if id != None:
-            group=get_object_or_404(Group,id=id)
-            form=GroupPersonForm(instance=group)
-        else:
-            form=GroupPersonForm()
-
-        return render(request,'newGroup.html',locals())
-
-    def post(self,request,id=None):
-        if id != None:
-            group=get_object_or_404(Group,id=id)
-            form=GroupPersonForm(request.POST,instance=group)
-        else:
-            form=GroupPersonForm(request.POST)
+    def post(self, request):
+        form=GroupForm(request.POST)
         if form.is_valid():
             g = form.save(commit=True)
-        return render(request, "showGroup.html", locals())
+            return render(request,"showGroup.html",locals())
 
-class addGroup(modifyGroup):
-    pass
+
+class modifyGroup(View):
+    def get(self,request,id):
+        group=get_object_or_404(Group,id=id)
+        form=GroupForm(instance=group)
+        return render(request,'newGroup.html',locals())
+    def post(self,request,id):
+        group=get_object_or_404(Group,id=id)
+        form=GroupForm(request.POST,instance=group)
+        if form.is_valid():
+            g = form.save(commit=True)
+            return render(request, "showGroup.html", locals())
 
 class deleteGroup(View):
     def get(self,request,id):
@@ -243,6 +243,21 @@ class allGroups(View):
     def get(self,request):
         groups_list=Group.objects.all().order_by('group_name')
         return render(request,"allGroups.html",locals())
+
+class addPersonToGroup(View):
+    def get(self, request):
+        form = GroupPersonForm()
+        return render(request, 'addPersonToGroup.html', locals())
+    def post(self,request):
+        group = Group.objects.get(pk=request.POST.get('group_name'))
+        form=GroupPersonForm(request.POST,instance=group)
+        if form.is_valid():
+            #group_name = form.cleaned_data.get('group_name')
+            form.save(commit=True)
+            return redirect('allGroups')
+
+        #selected_item = get_object_or_404(Item, pk=request.POST.get('item_id'))
+
 
 class groupSearch(View):
     def get(self,request):

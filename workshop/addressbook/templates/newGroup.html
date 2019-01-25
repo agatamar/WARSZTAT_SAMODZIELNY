@@ -8,11 +8,16 @@
 {% extends 'base.html' %}
 
 {% block content %}
+    {% if id %}
+    <h2>Edit Group</h2>
+    {% else %}
     <h2>New Group</h2>
+    {% endif %}
     <form method="POST" class="group-form">{% csrf_token %}
-        <label>Group Name: </label>
-        {{ form.group_name}}
-        <p><button type="submit" class="save btn btn-default">Save</button></p>
+        {{ form.as_p}}
+        <p><button type="submit" class="save btn btn-default">Save</button>
+        <button type="button" class="btn btn-default"><a href="{{request.META.HTTP_REFERER}}">Cancel</a></button>
+        </p>
     </form>
 {% endblock %}
 </body>

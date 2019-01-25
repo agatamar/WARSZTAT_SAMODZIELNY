@@ -39,6 +39,14 @@
               background-color: #4CAF50;
               color: white;
             }
+
+            a.button {
+            -webkit-appearance: button;
+            -moz-appearance: button;
+            appearance: button;
+            text-decoration: none;
+            color: initial;
+            }
         </style>
         <title>
         {% block title %}
@@ -52,7 +60,6 @@
               <a href="{% url 'new' %}">Add person</a>
               <a href="{% url 'allGroups' %}">All groups</a>
               <a href="{% url 'addGroup' %}">Add group</a>
-              <a href="{% url 'addPersonToGroup' %}">Add Person to Group</a>
               <a href="{% url 'groupSearch' %}">Search person in groups</a>
 
         </div>
